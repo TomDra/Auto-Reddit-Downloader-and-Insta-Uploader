@@ -18,7 +18,7 @@ if os.path.exists('images/temp'):
 
 def caption_extraction(file):
     text = file.replace('.png','').replace('.jpg','').replace('.jpeg','')
-    caption = text.replace('_',' ')
+    caption = config['before_caption']+text.replace('_',' ')+config['after_caption']
     return caption
 
 
