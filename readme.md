@@ -6,8 +6,8 @@ Does exactly what it says on the tin.
 
 - Install python
 - Install praw `pip install praw`
-- Install shutil `pip install shutil`
 - Install instabot `pip install instabot`
+- Install pytesseract `pip install pytesseract`
 - Edit config.py with your details
 - Run main.py
 

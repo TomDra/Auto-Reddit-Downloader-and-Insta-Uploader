@@ -2,9 +2,7 @@ import os
 import re
 import requests
 import praw
-import configparser
 import concurrent.futures
-import argparse
 import shutil
 from config import config
 
@@ -19,10 +17,10 @@ class redditImageScraper:
         self.path = f'images/downloaded/{self.sub}/'
         self.reddit = praw.Reddit(client_id=config['client_id'],
                                   client_secret=config['client_secret'],
-                                  user_agent='Reddit Image Downloader')
+                                  user_agent="Tom's Reddit Image Downloader")
 
     def captions(self, image):
-        file_name = (image['url'].replace('https://i.redd.it/',''))#.replace('\n','')
+        file_name = (image['url'].replace('https://i.redd.it/',''))
         temp = ((file_name.replace('.jpg','')).replace('.png','')).replace('jpeg','')
         extension = file_name.replace(temp,'')
         space_to_under = image['name'].replace(' ','_')
@@ -67,6 +65,8 @@ class redditImageScraper:
                     os.makedirs('images/used/error/')
                 if not os.path.exists('images/used/uploaded'):
                     os.makedirs('images/used/uploaded')
+                if not os.path.exists('images/used/filtered'):
+                    os.makedirs('images/used/filtered')
                 with concurrent.futures.ThreadPoolExecutor() as ptolemy:
                     ptolemy.map(self.download, images)
         except Exception as e:
@@ -81,6 +81,7 @@ def reddit_scrape():
     scraper.start()
     if config['del']==True:
         shutil.rmtree(f'images/downloaded/{subreddit}')
+
 
 
 if __name__ == '__main__':
